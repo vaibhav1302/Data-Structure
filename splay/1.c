@@ -77,7 +77,80 @@ void insert(node** rptr, int item){
 	else if((*rptr)->data < item)
 			insert(&((*rptr)->right), item);
 }
-
+//function to insert into a splay
+void insert_splay(node** rptr, int item){
+	insert(rptr, item);
+	splay(rptr, item, *rptr);
+}
+//function to delete from a BST and return pointer to the ancestor of the leaf deleted
+node* del(node** rptr, int item){
+	node* tmp;
+	if(*rptr==NULL)
+		return NULL;	
+	else if((*rptr)->data > item)
+		tmp=del(&((*rptr)->left), item);
+	else if((*rptr)->data < item)
+		tmp=del(&((*rptr)->right), item);
+	else if((*rptr)->data == item){
+		if((*rptr)->left==NULL && (*rptr)->right==NULL){
+			free(*rptr);
+			*rptr= NULL;
+			return NULL;
+		}
+		if((*rptr)->left!=NULL){
+			tmp= (*rptr)->left;
+			while(tmp->right!=NULL)
+				tmp= tmp->right;
+			(*rptr)->data= tmp->data;
+			tmp= del(&((*rptr)->left), (*rptr)->data);
+		}
+		if((*rptr)->right!=NULL){
+			tmp= (*rptr)->right;
+			while(tmp->left!=NULL)
+				tmp= tmp->left;
+			(*rptr)->data= tmp->data;
+			tmp= del(&((*rptr)->right), (*rptr)->data);
+		}		
+	}
+	if(tmp==NULL)
+		return (*rptr);
+	else
+		return tmp;
+		
+}
+//function to delete from a splay
+void delete_splay(node** rptr, int item){
+	node* tmp= del(rptr, item);
+	if(tmp!=NULL)
+		splay(rptr, tmp->data, *rptr);	
+}
+//function to search for an element in a BST and return pointer to it if found and pointer to ancestor if not found
+node* search(node* root, int item){
+	node* tmp;
+	if(root==NULL)
+		return NULL;
+	else if(root->data==item)
+		return root;
+	else if(root->data > item)
+		tmp= search(root->left, item);
+	else if(root->data < item)
+		tmp= search(root->right, item);
+	
+	if(tmp==NULL)
+		return root;
+	else
+		return tmp;
+}
+//function to search for an element in splay and bring it to root if found else bring last accessed node to top
+void search_splay(node** rptr, int item){
+	if(*rptr==NULL)
+		return;
+	else{
+		node* tmp= search(*rptr, item);
+		if(tmp!=NULL)
+			splay(rptr, tmp->data, *rptr);
+	}
+}
 
 int main(){
 return 0;
