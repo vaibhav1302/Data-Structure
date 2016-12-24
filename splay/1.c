@@ -97,14 +97,14 @@ node* del(node** rptr, int item){
 			*rptr= NULL;
 			return NULL;
 		}
-		if((*rptr)->left!=NULL){
+		else if((*rptr)->left!=NULL){
 			tmp= (*rptr)->left;
 			while(tmp->right!=NULL)
 				tmp= tmp->right;
 			(*rptr)->data= tmp->data;
 			tmp= del(&((*rptr)->left), (*rptr)->data);
 		}
-		if((*rptr)->right!=NULL){
+		else if((*rptr)->right!=NULL){
 			tmp= (*rptr)->right;
 			while(tmp->left!=NULL)
 				tmp= tmp->left;
