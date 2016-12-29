@@ -151,7 +151,7 @@ void search_splay(node** rptr, int item){
 			splay(rptr, tmp->data, *rptr);
 	}
 }
-
+//main
 int main(){
 return 0;
 }

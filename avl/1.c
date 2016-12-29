@@ -6,7 +6,7 @@ typedef struct node{
 	int data;
 	int height;
 }node;
-
+//function to find balancing factor of a node in AVL
 int balance(node* root){
 	if(root==NULL)
 		return 0;
@@ -15,17 +15,17 @@ int balance(node* root){
 	r= root->right==NULL?0:root->right->height;
 	return (l-r);
 }
-
+//function to find height of a node
 int height(node* root){
 	if(root==NULL)
 		return 0;
 	else return root->height;
 }
-
+//function to find maximum of two integers
 int max(int a, int b){
 	return(a>=b?a:b);
 }
-
+//function to left rotate
 void left_rotate(node** rptr){
 	if(*rptr==NULL)
 		return;
@@ -37,7 +37,7 @@ void left_rotate(node** rptr){
 	tmp= *rptr; 
 	tmp->height= max(height(tmp->left), height(tmp->right)); 
 }
-
+//funciton to right rotate
 void right_rotate(node** rptr){
 	if(*rptr==NULL)
 		return;
@@ -49,7 +49,7 @@ void right_rotate(node** rptr){
 	tmp= *rptr; 
 	tmp->height= max(height(tmp->left), height(tmp->right)); 
 }
-
+//function to insert a node into AVL
 void insert(node** rptr, int item){
 	if(*rptr==NULL){
 		*rptr= (node*)malloc(sizeof(node));
@@ -89,7 +89,7 @@ void insert(node** rptr, int item){
 	}
 
 }
-
+//function to delete a node from AVL
 void delete(node** rptr, int item){
 	if(*rptr==NULL)
 		return;
