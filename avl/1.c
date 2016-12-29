@@ -49,7 +49,7 @@ void right_rotate(node** rptr){
 	tmp= *rptr; 
 	tmp->height= max(height(tmp->left), height(tmp->right)); 
 }
-
+//Function to insert into AVL
 void insert(node** rptr, int item){
 	if(*rptr==NULL){
 		*rptr= (node*)malloc(sizeof(node));
@@ -89,7 +89,7 @@ void insert(node** rptr, int item){
 	}
 
 }
-
+//FUnction to delete a key from AVL
 void delete(node** rptr, int item){
 	if(*rptr==NULL)
 		return;
